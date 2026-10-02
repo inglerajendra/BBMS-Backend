@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
-  })
+  }),
 );
 app.use(express.json());
 app.use(cookieParser());
@@ -60,7 +60,9 @@ const createTables = async () => {
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
-    await pool.query(`ALTER TABLE invoices ADD COLUMN IF NOT EXISTS date DATE;`);
+    await pool.query(
+      `ALTER TABLE invoices ADD COLUMN IF NOT EXISTS date DATE;`,
+    );
 
     //Expenses Table
     await pool.query(`
@@ -95,5 +97,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
-
-
